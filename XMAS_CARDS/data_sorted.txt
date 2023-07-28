@@ -1,0 +1,9 @@
+Sun Tzu ,Adress: 8,Kyoto St ... number of cards:190
+Joan ,Adress: bb,Abraham Lincoln ... number of cards:95
+David ,Adress: 20,Cillian Murphy ... number of cards:91
+Marcus ,Adress: 5,John F. Kennedy ... number of cards:45
+Sam ,Adress: 15,R.Oppenheimer ... number of cards:23
+Mikaela ,Adress: 7,Michael Jordan ... number of cards:12
+Henry ,Adress: 31S,Hans Zimmer ... number of cards:9
+Julius ,Adress: 134,Tarantino ... number of cards:9
+Katarina ,Adress: 34,Nikola Tesla ... number of cards:4

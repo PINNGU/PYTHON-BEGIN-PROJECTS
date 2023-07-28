@@ -1,0 +1,8 @@
+David,91,Cillian Murphy,20
+Marcus,45,John F. Kennedy,5
+Katarina,4,Nikola Tesla,34
+Mikaela,12,Michael Jordan,7
+Joan,95,Abraham Lincoln,bb
+Sam,23,R.Oppenheimer,15
+Julius,9,Tarantino,134
+Henry,0,Hans Zimmer,31S
