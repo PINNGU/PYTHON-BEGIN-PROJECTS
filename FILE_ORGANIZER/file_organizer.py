@@ -4,10 +4,13 @@ import PySimpleGUI as psg
 
 FOLDER_NAME = "SORTED-FILES" #chose to give any folder name
 
+psg.theme("Dark Blue 17")
+psg.set_options(font = "Calibri 12")
+
 layout = [ 
-    [psg.Text("Path(leave empty for desktop):"),psg.Input(key = "INPUT")],
-    [psg.Button("Sort",key = "SORT"),psg.Button("Reverse",key = "REVERSE")],
-    [psg.Text("",key = "DONE")]   
+    [psg.Text("Path(leave empty for desktop):"),psg.Input(key = "INPUT",pad = (10,15))],
+    [psg.Button("Sort",key = "SORT",expand_x=True),psg.Button("Reverse",key = "REVERSE",expand_x=True)],
+    [psg.Text("",key = "DONE",justification="center",expand_x=True,expand_y=True,font="Calibri 14",text_color="yellow")]   
 ]
 
 window = psg.Window("Pinngu's File Sorter",layout)
@@ -89,10 +92,10 @@ while True:
 
         if values["INPUT"] == "":
             check = "Desktop"
-            print("lol")
+
         else:
             check = values["INPUT"]
-            print(check)
+
 
         if check not in dirs:
             dirs[check] = False
@@ -104,12 +107,10 @@ while True:
             get_all_files(src) #sort all files in the chosen dir
             window["DONE"].update("Sort complete!")
             dirs[check] = True
-            print(values)
         elif event == "SORT" and dirs[check]:
             window["DONE"].update("Already Sorted...")
 
         if event ==  "REVERSE" and dirs[check]:
-            print(check,"rvrs")
             go_back(src + f"/{FOLDER_NAME}",get_path(values["INPUT"]))
             os.chdir(src)
             os.rmdir(src + f"{FOLDER_NAME}")
