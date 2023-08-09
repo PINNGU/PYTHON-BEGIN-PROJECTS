@@ -1,11 +1,9 @@
 import PySimpleGUI as psg
 
 ans = 0
-left = 0
-right = 0
 output = ''
 calculated = False
-screen_free = True
+
 
 def create_win(theme,size,menu):
     psg.theme(theme)
