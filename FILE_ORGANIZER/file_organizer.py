@@ -1,7 +1,19 @@
 import os
 import shutil
+import PySimpleGUI as psg
 
 FOLDER_NAME = "SORTED-FILES" #chose to give any folder name
+
+layout = [ 
+    [psg.Text("Path(leave empty for desktop):"),psg.Input(key = "INPUT")],
+    [psg.Button("Sort",key = "SORT"),psg.Button("Reverse",key = "REVERSE")],
+    [psg.Text("",key = "DONE")]   
+]
+
+window = psg.Window("Pinngu's File Sorter",layout)
+
+
+dirs = {}
 
 extensions = {
             ".txt":"Documents",
@@ -65,18 +77,53 @@ def go_back(src,dst):  #function that erases the action and un-sorts all files
         
         os.rmdir(src + "/" + dir)
        
-where = input("Please choose where to sort and store,press only enter for desktop:")
-src = get_path(where) # get the CHOSEN LOCATION as path
-maindir = make_main_dir(src)  # make the main directory in CHOSEN LOCATION
-make_subdirs(maindir)  # make the subfolders in the main dir
-get_all_files(src) #sort all files in the chosen dir
+while True:
 
-erase = input("Would you like to cancel changes(Y or N):")
+    event,values = window.read()
 
-if erase == "Y" or erase == "y":
-    go_back(src + f"/{FOLDER_NAME}",get_path(where))
-    os.chdir(src)
-    os.rmdir(src + f"{FOLDER_NAME}")
+
+    if event == psg.WINDOW_CLOSED:
+        break
+
+    try:
+
+        if values["INPUT"] == "":
+            check = "Desktop"
+            print("lol")
+        else:
+            check = values["INPUT"]
+            print(check)
+
+        if check not in dirs:
+            dirs[check] = False
+        src = get_path(values["INPUT"])# get the CHOSEN LOCATION as path
+
+        if event == "SORT" and not dirs[check]:
+            maindir = make_main_dir(src)  # make the main directory in CHOSEN LOCATION
+            make_subdirs(maindir)  # make the subfolders in the main dir
+            get_all_files(src) #sort all files in the chosen dir
+            window["DONE"].update("Sort complete!")
+            dirs[check] = True
+            print(values)
+        elif event == "SORT" and dirs[check]:
+            window["DONE"].update("Already Sorted...")
+
+        if event ==  "REVERSE" and dirs[check]:
+            print(check,"rvrs")
+            go_back(src + f"/{FOLDER_NAME}",get_path(values["INPUT"]))
+            os.chdir(src)
+            os.rmdir(src + f"{FOLDER_NAME}")
+            window["DONE"].update("Reversed the sorting..")
+            dirs[check] = False
+
+    except:
+        window["DONE"].update("Non existing path..")
+        continue
+
+
+
+
+window.close()
 
 
 
