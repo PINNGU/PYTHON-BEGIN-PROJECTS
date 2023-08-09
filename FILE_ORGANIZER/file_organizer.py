@@ -73,7 +73,6 @@ def get_all_files(source):  # this function gets all the files and  sorts them a
 
 def go_back(src,dst):  #function that erases the action and un-sorts all files
     os.chdir(src)
-    print(os.getcwd())
     for dir in os.listdir():
         for file in os.listdir(dir):
             shutil.move(src + "/" + dir + "/" + file,dst)
@@ -89,39 +88,38 @@ while True:
         break
 
     try:
-
+        print(dirs)
         if values["INPUT"] == "":
             check = "Desktop"
-
         else:
             check = values["INPUT"]
 
-
-        if check not in dirs:
-            dirs[check] = False
+        current = check
+        if current not in dirs:
+            dirs[current] = False
+        
         src = get_path(values["INPUT"])# get the CHOSEN LOCATION as path
 
-        if event == "SORT" and not dirs[check]:
+        if event == "SORT" and not dirs[current]:
             maindir = make_main_dir(src)  # make the main directory in CHOSEN LOCATION
             make_subdirs(maindir)  # make the subfolders in the main dir
             get_all_files(src) #sort all files in the chosen dir
             window["DONE"].update("Sort complete!")
-            dirs[check] = True
-        elif event == "SORT" and dirs[check]:
+            dirs[check] = True 
+        elif event == "SORT" and dirs[current]:
             window["DONE"].update("Already Sorted...")
-
-        if event ==  "REVERSE" and dirs[check]:
-            go_back(src + f"/{FOLDER_NAME}",get_path(values["INPUT"]))
+        elif event ==  "REVERSE" and dirs[current]:
+            go_back(src + f"/{FOLDER_NAME}",src)
             os.chdir(src)
-            os.rmdir(src + f"{FOLDER_NAME}")
+            os.rmdir(src + f"/{FOLDER_NAME}")
             window["DONE"].update("Reversed the sorting..")
             dirs[check] = False
+        elif event == "REVERSE" and not dirs[current]:
+            window["DONE"].update("Already reversed!")
 
     except:
         window["DONE"].update("Non existing path..")
         continue
-
-
 
 
 window.close()
