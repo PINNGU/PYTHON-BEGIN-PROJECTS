@@ -5,13 +5,14 @@ left = 0
 right = 0
 output = ''
 calculated = False
+screen_free = True
 
 def create_win(theme,size,menu):
     psg.theme(theme)
     psg.set_options(font = "Candara 18")
 
     layout = [
-        [psg.Text("9999999",
+        [psg.Text("0",
                   pad = (12,20),
                   expand_x=True,
                   justification="right",
@@ -44,7 +45,7 @@ while True:
         window = create_win(event,(6,2),themes)
 
     if event in ['0','1','2','3','4','5','6','7','8','9','.']:
-        if len(output) < 17:
+        if len(output) < 14:
             if calculated:
                 output = ''
             calculated = False
@@ -52,7 +53,7 @@ while True:
             window["OUTPUT"].update(output)
 
     if event in ['-','+','*','/']:
-        if len(output) < 17 and len(output) > 0:
+        if len(output) < 14 and len(output) > 0:
             output = output + event
             window["OUTPUT"].update(output)
             calculated = False
