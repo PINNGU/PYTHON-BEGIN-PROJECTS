@@ -10,6 +10,7 @@ def create_win(theme,size,menu):
     psg.set_options(font = "Candara 18")
 
     layout = [
+        [psg.Push(),psg.Image("cross.png",pad = 0,enable_events=True,key = "CLOSE")],
         [psg.Text("0",
                   pad = (12,20),
                   expand_x=True,
@@ -18,16 +19,16 @@ def create_win(theme,size,menu):
                   right_click_menu = menu,
                   key = "OUTPUT"
                   )],
-        [psg.Button("Clear",size=size,expand_x=True),psg.Button("Ans",size=size,expand_x=True),psg.Button("+",size=size)],
-        [psg.Button("9",size=size),psg.Button("8",size=size),psg.Button("7",size=size),psg.Button("-",size=size)],
-        [psg.Button("6",size=size),psg.Button("5",size=size),psg.Button("4",size=size),psg.Button("*",size=size)],
-        [psg.Button("3",size=size),psg.Button("2",size=size),psg.Button("1",size=size),psg.Button("/",size=size)],
-        [psg.Button("0",size=size,expand_x=True),psg.Button("=",size=size),psg.Button(".",size=size)]
+        [psg.Button("Clear",size=size,expand_x=True,border_width=0,button_color="#FC7703"),psg.Button("Ans",size=size,expand_x=True,border_width=0,button_color="#FC7703"),psg.Button("+",size=size,border_width=0,button_color="#FC7703")],
+        [psg.Button("9",size=size,border_width=0,button_color="#FC7703"),psg.Button("8",size=size,border_width=0,button_color="#FC7703"),psg.Button("7",size=size,border_width=0,button_color="#FC7703"),psg.Button("-",size=size,border_width=0,button_color="#FC7703")],
+        [psg.Button("6",size=size,border_width=0,button_color="#FC7703"),psg.Button("5",size=size,border_width=0,button_color="#FC7703"),psg.Button("4",size=size,border_width=0,button_color="#FC7703"),psg.Button("*",size=size,border_width=0,button_color="#FC7703")],
+        [psg.Button("3",size=size,border_width=0,button_color="#FC7703"),psg.Button("2",size=size,border_width=0,button_color="#FC7703"),psg.Button("1",size=size,border_width=0,button_color="#FC7703"),psg.Button("/",size=size,border_width=0,button_color="#FC7703")],
+        [psg.Button("0",size=size,expand_x=True,border_width=0,button_color="#FC7703"),psg.Button("=",size=size,border_width=0,button_color="#FC7703"),psg.Button(".",size=size,border_width=0,button_color="#FC7703")]
     ]
     
-    return psg.Window("Calculator",layout)
+    return psg.Window("Calculator",layout,no_titlebar=True)
 
-themes = ['menu',["dark","reddit","LightGrey3"]]
+themes = ['menu',["dark","reddit","LightGrey6","HotDogStand"]]
 
 window = create_win("dark",(6,2),themes)
 
@@ -35,7 +36,7 @@ while True:
 
     event,values = window.read()
 
-    if event == psg.WIN_CLOSED:
+    if event == "CLOSE":
         break
 
     if event in themes[1]:
@@ -57,8 +58,9 @@ while True:
             calculated = False
 
     if event in "Ans":
-        output = output + str(ans)
-        window["OUTPUT"].update(output)
+        if ans != 0:
+            output = output + str(ans)
+            window["OUTPUT"].update(output)
 
     if event in "=":
         output = ''.join(output)
