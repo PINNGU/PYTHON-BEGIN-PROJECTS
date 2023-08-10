@@ -51,7 +51,6 @@ while True:
 
     if event == "LAP" and counting:
         lap = time() - lap
-        print(start)
         if lap_num % 5 == 0:
             lap_key = "l1"
         elif lap_num % 5 == 1:
